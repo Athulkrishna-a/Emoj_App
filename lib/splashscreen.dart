@@ -1,4 +1,6 @@
+import 'package:emoj_app/homescreen.dart';
 import 'package:emoj_app/introscreen.dart';
+import 'package:emoj_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -17,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
       (() {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) {
-            return const IntroScreen();
+            return isViwed != 0 ? IntroScreen() : HomeView();
           }),
         );
       }),
