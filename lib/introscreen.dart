@@ -1,6 +1,7 @@
 import 'package:emoj_app/homescreen.dart';
 import 'package:emoj_app/introview/introview_1.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -13,6 +14,12 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   final PageController _controller = PageController();
   bool OnLastPage = false;
+  _storeOnBoardInfo() async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt("HomeView", isViewed);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +70,8 @@ class _IntroScreenState extends State<IntroScreen> {
                 SmoothPageIndicator(controller: _controller, count: 3),
                 OnLastPage
                     ? GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          await _storeOnBoardInfo();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) {
                               return const HomeView();
